@@ -67,7 +67,7 @@ Cron 模式写入策略：直接写入 + 汇报差异（敏感信息一律跳过
 
 检查以下四项：
 
-1. **`memory/` 目录** — 缺失则引导用户先执行 xiaoyaoclaw-workspace-initializer 初始化（本技能不自行创建整套规范）
+1. **`memory/` 目录** — 缺失则**自动创建**（本技能只创建记忆所需目录，不创建整套工作区规范；若用户需要完整规范，可引导执行 xiaoyaoclaw-workspace-initializer）
 2. **工作区根目录 `MEMORY.md`**（注意：是根目录，与 AGENTS.md 平级，**不在 memory/ 下**）：
    - **缺失 → 执行「首次建忆」**：
      - 扫描 `memory/` 全部历史日志（YYYY-MM-DD.md）
@@ -151,7 +151,7 @@ Cron 模式写入策略：直接写入 + 汇报差异（敏感信息一律跳过
 2. 敏感信息（token/密码/密钥）默认跳过不落盘，报告提示
 3. 归档 ≠ 删除；删除必须用户确认
 4. 不自动清理；蒸馏不触发 /reset（重置由用户自行决定）
-5. 不改 openclaw.json；记忆路径一律按 WORKSPACE.md 走（路径冲突仲裁原则）
+5. 不改 openclaw.json；记忆路径按本技能约定（根目录 MEMORY.md + memory/ 日志 + 根目录 distill-config.json）；若工作区存在 WORKSPACE.md 则遵循其路径仲裁
 6. 每个 agent **只处理自己的工作区记忆**（自己的根目录 MEMORY.md + 自己的 memory/）；跨 agent 整理需用户明确指令
 7. MEMORY.md 含个人上下文 → 只在主会话加载（继承 AGENTS.md 既有规则）
 
@@ -178,4 +178,4 @@ Cron 模式写入策略：直接写入 + 汇报差异（敏感信息一律跳过
 
 ## 姊妹项目
 
-- 🏠 **xiaoyaoclaw-workspace-initializer**（工作区初始化器）：管记忆系统的「家」——目录结构 + WORKSPACE.md 规范 + 多 agent 配置安全。本技能缺失 memory/ 目录时引导其初始化。<https://github.com/dtsola/xiaoyaoclaw-workspace-initializer>
+- 🏠 **xiaoyaoclaw-workspace-initializer**（工作区初始化器）：管记忆系统的「家」——目录结构 + WORKSPACE.md 规范 + 多 agent 配置安全。本技能缺失 memory/ 时自动创建；需要完整工作区规范时引导其初始化。<https://github.com/dtsola/xiaoyaoclaw-workspace-initializer>
