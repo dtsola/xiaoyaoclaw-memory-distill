@@ -1,0 +1,10 @@
+{
+  "retentionDays": 90,
+  "autoClean": false,
+  "autoReset": false,
+  "maintainEvery": 7,
+  "categories": ["core", "daily", "temporary"],
+  "sensitivePatterns": ["ghp_[A-Za-z0-9]", "sk-[A-Za-z0-9]", "api[_-]?key", "password", "secret", "token"],
+  "schedule": "0 22 * * *",
+  "lastDistill": null
+}
