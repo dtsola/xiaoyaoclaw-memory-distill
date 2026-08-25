@@ -116,17 +116,17 @@ xiaoyaoclaw-memory-distill/
 |---|---|---|
 | `retentionDays` | 90 | 日志保留天数，超过提示归档 |
 | `autoClean` | false | 是否自动清理（**永远建议 false**，记忆是永久资产） |
-| `autoReset` | false | 是否自动 /reset（**设计上永远 false**，不提供） |
 | `maintainEvery` | 7 | 每 N 次蒸馏触发一次「定期提炼」（Step 6） |
 | `sensitivePatterns` | ghp_/sk-/password 等 | 敏感信息检测规则，命中即跳过不落盘，可扩展 |
 | `schedule` | 0 22 * * * | 蒸馏时间参考记录（实际 cron 在 OpenClaw 配置里，这里仅存档） |
 | `lastDistill` | null | 上次蒸馏时间戳（状态记录，cron 触发时防同一天重复蒸馏） |
 
+> 注：原设计中的 `autoReset` 字段已移除（2026-08-25 指挥官确认：用不到，直接删）。蒸馏不触发 /reset 是行为承诺，不设配置项。
+
 ```json
 {
   "retentionDays": 90,
   "autoClean": false,
-  "autoReset": false,
   "maintainEvery": 7,
   "categories": ["core", "daily", "temporary"],
   "sensitivePatterns": ["ghp_[A-Za-z0-9]", "sk-[A-Za-z0-9]", "api[_-]?key", "password", "secret", "token"],
@@ -136,7 +136,7 @@ xiaoyaoclaw-memory-distill/
 ```
 
 **设计原则：**
-- `autoReset` 永远 false——**不提供自动 /reset**（会打断进行中任务），只在报告里提示
+- 蒸馏不触发 /reset——重置由用户自行决定，只在报告里提示
 - `autoClean` 默认 false——清理需人工确认
 - 配置是**运行时参数**，不是日志；模板在技能 templates/ 下，实际配置在工作区根目录
 
