@@ -1,5 +1,9 @@
 # OpenClaw Memory Distill 🧠
 
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="OpenClaw Memory Distill — distill conversations into structured memory: semantic classification into core (MEMORY.md), daily (memory/YYYY-MM-DD.md), with dedup and sensitive-info skip">
+</p>
+
 > 把对话蒸馏成结构化记忆，解决会话上下文溢出。
 > OpenClaw memory distillation & organization — distill conversations into MEMORY.md + daily logs, so your agent never forgets.
 
