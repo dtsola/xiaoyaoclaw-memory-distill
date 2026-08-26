@@ -12,6 +12,8 @@
 > OpenClaw memory distillation & organization — distill conversations into MEMORY.md + daily logs, so your agent never forgets.
 
 ![license](https://img.shields.io/badge/license-MIT-green)
+[![ClawHub downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fclawhub.ai%2Fapi%2Fv1%2Fskills%2Fxiaoyaoclaw-memory-distill&query=skill.stats.downloads&label=ClawHub%20downloads&color=blue)](https://clawhub.ai/dtsola/skills/xiaoyaoclaw-memory-distill)
+[![skills.sh](https://skills.sh/b/dtsola/xiaoyaoclaw-memory-distill)](https://skills.sh/dtsola/xiaoyaoclaw-memory-distill)
 
 ## 为什么需要它
 
