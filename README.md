@@ -1,5 +1,9 @@
 # OpenClaw Memory Distill 🧠
 
+<div align="center">
+  <strong>🇨🇳 中文</strong> | <a href="README.en.md">🌐 English</a>
+</div>
+
 <p align="center">
   <img src="./assets/readme/hero.svg" width="100%" alt="OpenClaw Memory Distill — distill conversations into structured memory: semantic classification into core (MEMORY.md), daily (memory/YYYY-MM-DD.md), with dedup and sensitive-info skip">
 </p>
