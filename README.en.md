@@ -143,27 +143,6 @@ MIT — use it freely, attribution optional.
 - 📚 **xiaoyaoclaw-kb-retriever** (knowledge base retriever): local KB retrieval — hierarchical data_structure.md index navigation + progressive retrieval over md/pdf/xlsx, zero dependencies, Windows & macOS ready. <https://github.com/dtsola/xiaoyaoclaw-kb-retriever>
 - 🩹 **xiaoyaoclaw-workspace-auditor**: read-only workspace health check — 5 categories, graded report with fix suggestions, zero-dependency, never modifies files. <https://github.com/dtsola/xiaoyaoclaw-workspace-auditor>
 - 🗂️ **xiaoyaoclaw-task-progress-tracker** (task progress tracker): directory as container, PROGRESS.md as progress — lifecycle management for tasks/ and projects/ (status + progress log + document index). <https://github.com/dtsola/xiaoyaoclaw-task-progress-tracker>
+- 📎 **xiaoyaoclaw-web-clipper**: save any web page as clean local Markdown with frontmatter — dual-engine extraction (readability + trafilatura fallback), Chinese-safe filenames, batch clipping with dedup; output lands in knowledge/clippings/ ready for kb-retriever indexing. <https://github.com/dtsola/xiaoyaoclaw-web-clipper>
 
-## 小遥Claw (XiaoyaoClaw)
-
-**Put an AI assistant in your own computer.**
-
-- 🚀 Landing page: <https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz>
-- 📖 Intro repo: <https://github.com/dtsola/xiaoyaoclaw-introduction>
-
-## About the author
-
-- 🌐 Blog: <https://www.dtsola.com>
-- 📺 Bilibili: <https://space.bilibili.com/736015>
-- 💻 GitHub: <https://github.com/dtsola>
-- 📕 Xiaohongshu: <https://www.xiaohongshu.com/user/profile/5b4c0597e8ac2b06aa13346d>
-
-## 💬 Join the community
-
-Xiaoyao product family user group — feedback · usage · feature requests:
-
-<p align="center">
-  <img src="./assets/readme/community-qr.png" width="280" alt="Xiaoyao AI user group QR code: scan to join, or add WeChat dtsola (note: join group)">
-</p>
-
-<p align="center">Scan to join, or add WeChat <code>dtsola</code> (note: <b>join group</b>)</p>
+## 
