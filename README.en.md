@@ -137,6 +137,16 @@ MIT — use it freely, attribution optional.
 - WeChat: `dtsola` (note: **openclaw custom**)
 - Services: OpenClaw multi-agent deployment / workspace standardization / custom Skill development / agent memory system setup
 
+## 💬 Join the community
+
+Xiaoyao product family user group — feedback · exchange · suggestions:
+
+<p align="center">
+  <img src="./assets/readme/community-qr.png" width="280" alt="XiaoyaoAI user group QR: scan to join, or add WeChat dtsola (note: 加群)">
+</p>
+
+<p align="center">Scan to join, or add WeChat <code>dtsola</code> (note: <b>加群</b>)</p>
+
 ## Sister project
 
 - 🏠 **xiaoyaoclaw-workspace-initializer** (workspace initializer): gives every agent a "home" — standard directory structure + WORKSPACE.md rules + multi-agent config safety. <https://github.com/dtsola/xiaoyaoclaw-workspace-initializer>
