@@ -6,11 +6,24 @@ description: >
   + daily logs (memory/YYYY-MM-DD.md). Solves context overflow, auto-builds
   MEMORY.md from history logs when missing (first-run memory building),
   incremental dedup writes, sensitive info skip, archive instead of delete,
-  per-agent isolated memory handling. Use when user says 蒸馏记忆/整理对话/
-  压缩上下文/整理记忆, or scheduled via cron. 中文：OpenClaw 记忆整理工具。
+  per-agent isolated memory handling. Writes only inside the workspace: the
+  root MEMORY.md and memory/YYYY-MM-DD.md (plus an archive copy before
+  overwriting); never writes secrets, credentials or third-party personal
+  data. Scheduled runs report only unless autoWrite is explicitly enabled.
+  Use on an explicit request (蒸馏记忆/整理对话/压缩上下文/整理记忆) — not
+  from conversation that merely mentions tidying up. 中文：OpenClaw 记忆整理工具。
   将对话蒸馏为结构化记忆（根目录 MEMORY.md + memory/ 日志），解决上下文溢出；
   MEMORY.md 缺失时从历史日志「首次建忆」；增量去重写入防膨胀；敏感信息自动跳过；
-  只归档不删除；每个 agent 只处理自己的记忆。
+  只归档不删除；每个 agent 只处理自己的记忆。写入只发生在工作区内（根 MEMORY.md +
+  memory/YYYY-MM-DD.md，覆盖前先留归档）；不写密钥/凭据/第三方隐私；定时任务默认只报告，
+  需显式开启 autoWrite 才自动落盘。
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # OpenClaw Memory Distill（记忆整理工具）
@@ -20,13 +33,38 @@ description: >
 
 > 🚀 **小遥Claw：「把 AI 助手装进自己的电脑」：<https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz>**
 
+> 🌐 **语言 / Language**：文档与默认输出为中文，**语言可选**——用户用英文或其他语言就按该语言整理与回报；
+> 记忆文件本身的记录语言跟随用户习惯。
+
 把对话蒸馏成结构化记忆，解决会话上下文溢出。缺失 MEMORY.md 时自动从历史日志「首次建忆」。
 每个 agent 独立整理自己的记忆——不丢、不重、不乱。
 
+## 敏感信息拦截（落盘前必做的扫描）
+
+记忆文件是**明文**、长期保存、还会被后续会话读取，因此**任何凭据类内容都不许落盘**。蒸馏写入前逐条扫描，命中就**整条跳过**（不要改写后保留、不要只打码一半），并只记一行「已跳过 N 条敏感信息」。
+
+**必跳过类别（denylist）**：
+
+| 类别 | 典型形态 |
+|---|---|
+| 访问令牌 / API key | `ghp_`、`github_pat_`、`sk-`、`xoxb-`、`AKIA`、`Bearer <token>`、`api_key=`、`token:` |
+| 口令 / 密钥文件 | `password=`、`passwd`、`BEGIN PRIVATE KEY`、`.pem`/`.key` 内容、keystore |
+| 会话与 cookie | `Cookie:`、`Set-Cookie`、`session_id=`、`Authorization:`、一次性验证码 / OTP |
+| 连接串 | `postgres://user:pass@`、`mysql://`、`redis://`、含密码的 DSN |
+| 支付与证件 | 卡号、CVV、银行账号、身份证号 / 护照号 |
+| 第三方隐私 | 非用户本人的手机号、邮箱、住址、健康信息 |
+
+**做法**：① 用描述替代原文（「用户提供了 GitHub token，已跳过不记录」）② 脚本/命令示例里的密钥一律替换成 `<REDACTED>` 或环境变量占位 ③ 配置 `templates/distill-config.json` 的 `sensitivePatterns` 可按需增补正则，**配置文件本身也不得存放真实密钥** ④ 拿不准算不算敏感 → 跳过并回报，让用户决定。
+
 ## 触发方式
 
-### 1. 手动触发
-用户说：「蒸馏记忆」「整理对话」「压缩上下文」「整理记忆」→ 立即执行完整蒸馏流程。
+### 1. 手动触发（需明确意图）
+
+**触发**：用户明确要求蒸馏/整理**记忆**或对话记录——「蒸馏记忆」「整理记忆」「把这轮对话蒸馏一下」「压缩上下文并沉淀到 MEMORY.md」。
+
+**不触发**：随口说的「整理一下」「梳理一下思路」「总结下今天」（没说记忆/蒸馏）、问记忆机制怎么工作、或只是**讨论**要不要整理 —— 先问一句「要执行记忆蒸馏并写入 MEMORY.md 吗？」，得到肯定回答再动手。
+
+**写前闸门**：写入前先说清「将更新哪些文件（根 MEMORY.md / memory/YYYY-MM-DD.md）+ 预计新增/修改几条」，敏感信息一律跳过并计数。若本轮只是探明意图，则**只报告不落盘**。
 
 ### 2. Cron 定时（推荐）
 配置 OpenClaw cron，每天固定时间自动蒸馏。示例（每天 22:00）：
@@ -37,7 +75,7 @@ description: >
   "schedule": { "kind": "cron", "expr": "0 22 * * *", "tz": "Asia/Shanghai" },
   "payload": {
     "kind": "systemEvent",
-    "text": "执行记忆蒸馏：分析今日对话，提取决策/任务/知识点/临时信息，按 xiaoyaoclaw-memory-distill 技能流程分级写入 MEMORY.md 和 memory/YYYY-MM-DD.md，生成蒸馏报告。"
+    "text": "执行记忆蒸馏（默认只报告）：分析今日对话，提取决策/任务/知识点/临时信息，按 xiaoyaoclaw-memory-distill 技能流程生成蒸馏报告并列出「建议写入 MEMORY.md / memory/YYYY-MM-DD.md 的条目」。仅当 distill-config.json 中 autoWrite=true 时，才按报告写入并汇报差异。"
   },
   "sessionTarget": "main",
   "delivery": { "mode": "announce" }
@@ -45,7 +83,16 @@ description: >
 ```
 
 ⚠️ systemEvent 文本必须**自包含上下文**（含触发指令 + 报告要求），因为定时任务无对话上下文。
-Cron 模式写入策略：直接写入 + 汇报差异（敏感信息一律跳过兜底）。
+
+**Cron 模式写入策略（默认只报告，自动落盘需显式开启）**：
+
+| 配置 | 行为 |
+|---|---|
+| `autoWrite: false`（**默认**） | 定时任务**只生成报告**：列出建议写入的条目与目标文件，不修改任何文件 |
+| `autoWrite: true`（显式开启） | 可自动落盘：写前先备份（MEMORY.md → `memory/archive/MEMORY-YYYYMMDD.md`），只写白名单路径（根 `MEMORY.md` + `memory/*.md`），写完汇报差异与跳过项 |
+
+开启 `autoWrite` 前必须向用户明示：「定时任务会在无人工确认的情况下修改工作区记忆文件」，取得同意后再改配置；随时可改回 `false`。
+两种模式都遵守：敏感信息一律跳过并计数、只归档不删除、写入清单留痕（在当日日志追加一行「本次蒸馏改了什么」便于回看与回滚）。
 
 ### 3. HEARTBEAT 集成
 ⚠️ 默认 HEARTBEAT 关闭时不生效。需先启用心跳，再在 HEARTBEAT.md 添加：

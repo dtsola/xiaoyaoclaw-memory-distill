@@ -1,0 +1,1158 @@
+{
+  "schema": "clawhub.skill.verify.v1",
+  "ok": false,
+  "decision": "fail",
+  "reasons": [
+    "security.status_not_clean"
+  ],
+  "slug": "xiaoyaoclaw-memory-distill",
+  "displayName": "OpenClaw Memory Distill",
+  "pageUrl": "https://clawhub.ai/dtsola/skills/xiaoyaoclaw-memory-distill",
+  "publisherHandle": "dtsola",
+  "publisherDisplayName": "dtsola",
+  "publisherProfileUrl": "https://clawhub.ai/dtsola",
+  "version": "1.0.2",
+  "resolvedFrom": "latest",
+  "tag": null,
+  "createdAt": 1787656012754,
+  "card": {
+    "available": true,
+    "path": "skill-card.md",
+    "url": "https://wry-manatee-359.convex.site/api/v1/skills/xiaoyaoclaw-memory-distill/card?ownerHandle=dtsola&version=1.0.2",
+    "sha256": "99efefe62b1d485d84c35d3ffa7844f4342ccc30ba8b7a00aa2af8d7d52d5161",
+    "size": 2372,
+    "contentType": "text/markdown; charset=utf-8"
+  },
+  "artifact": {
+    "sourceFingerprint": "0833ac4a3062ae96affcfd259d09dc0a8e38296c473861bc708a325d104c72c4",
+    "bundleFingerprints": [
+      "c6378fafc91efa2b4094d9e58bc99b65486511bf0527872ff8999d3b9514e30f",
+      "d39bad7a98004953e7bb0c5d154cad263b99083294134f0afce7faaf98bfac7f"
+    ],
+    "files": [
+      {
+        "path": "templates/AGENTS-memory-safety.md",
+        "size": 972,
+        "sha256": "1551b6c20c3eddb059a79e4dceb8066163ceb07aa8444581e73c0a1d04501ce8",
+        "contentType": "application/octet-stream"
+      },
+      {
+        "path": "templates/distill-config.json",
+        "size": 277,
+        "sha256": "cdb234f22b5962a7c4c707ee0d2aa7e2437be97143b9bd7adc9534a423cde878",
+        "contentType": "application/json"
+      },
+      {
+        "path": "templates/MEMORY.md",
+        "size": 816,
+        "sha256": "0d49b0277ce444eb8436fde552606b1af797d4cc337112be4c2227cad67938dd",
+        "contentType": "application/octet-stream"
+      },
+      {
+        "path": "SKILL.md",
+        "size": 9458,
+        "sha256": "87b742886fc5247bd75f2657328e02ba182634c2b6f27e85670d0825d745821b",
+        "contentType": "application/octet-stream"
+      }
+    ]
+  },
+  "provenance": {
+    "source": "unavailable",
+    "reason": "No server-resolved GitHub import provenance is stored for this version."
+  },
+  "security": {
+    "status": "suspicious",
+    "passed": false,
+    "rawStatus": "suspicious",
+    "verdict": "suspicious",
+    "confidence": "high",
+    "summary": "This memory skill is not malicious, but it deserves review because it can automatically persist private conversation details into workspace memory files.",
+    "model": null,
+    "checkedAt": 1789557113771,
+    "scannerReports": {
+      "aig": {
+        "version": "2.1.0",
+        "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/Schemata/sarif-schema-2.1.0.json",
+        "runs": [
+          {
+            "tool": {
+              "driver": {
+                "name": "aig-skill-scan",
+                "version": "0.2.1",
+                "informationUri": "https://github.com/Tencent/AI-Infra-Guard",
+                "rules": [
+                  {
+                    "id": "T01",
+                    "name": "Skill Instruction Hijacking",
+                    "shortDescription": {
+                      "text": "Alters the agent's current session goals or safety constraints when the skill is loaded"
+                    }
+                  },
+                  {
+                    "id": "T02",
+                    "name": "Agent Memory Poisoning",
+                    "shortDescription": {
+                      "text": "Writes attacker-controlled rules into persistent memory so they continue to affect future sessions"
+                    }
+                  },
+                  {
+                    "id": "T03",
+                    "name": "Remote Payload Retrieval and Execution",
+                    "shortDescription": {
+                      "text": "Fetches code from an external URL, allowing the effective payload to change after skill review"
+                    }
+                  },
+                  {
+                    "id": "T04",
+                    "name": "Embedded Malicious Code",
+                    "shortDescription": {
+                      "text": "Ships malicious scripts inside the skill package and executes them locally when invoked"
+                    }
+                  },
+                  {
+                    "id": "T05",
+                    "name": "Unauthorized Access and Privilege Escalation",
+                    "shortDescription": {
+                      "text": "Breaks least-privilege boundaries by obtaining permissions beyond the task's legitimate needs"
+                    }
+                  },
+                  {
+                    "id": "T06",
+                    "name": "System Persistence",
+                    "shortDescription": {
+                      "text": "Installs cross-session backdoors, hooks, services, or scheduled tasks that survive the skill run"
+                    }
+                  },
+                  {
+                    "id": "T07",
+                    "name": "Tool Hijacking and Spoofing",
+                    "shortDescription": {
+                      "text": "Modifies, wraps, spoofs, or replaces tools so legitimate-looking calls execute attacker logic"
+                    }
+                  },
+                  {
+                    "id": "T08",
+                    "name": "Insecure Dependencies",
+                    "shortDescription": {
+                      "text": "Introduces malicious packages or components through dependency confusion, typosquatting, or unsafe sources"
+                    }
+                  },
+                  {
+                    "id": "T09",
+                    "name": "Insecure Skill Coding Practices",
+                    "shortDescription": {
+                      "text": "Exposes exploitable flaws such as hardcoded secrets, command injection, plaintext sensitive data, or unsafe temp files"
+                    }
+                  },
+                  {
+                    "id": "other",
+                    "name": "Other Risk",
+                    "shortDescription": {
+                      "text": "Security issues not covered by the T01-T09 classification"
+                    }
+                  }
+                ]
+              }
+            },
+            "results": [
+              {
+                "ruleId": "T09",
+                "level": "warning",
+                "message": {
+                  "text": "Sensitive temporary authentication data may be persisted in plaintext memory logs"
+                },
+                "locations": [
+                  {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "SKILL.md"
+                      },
+                      "region": {
+                        "startLine": 92,
+                        "endLine": 110
+                      }
+                    }
+                  }
+                ],
+                "partialFingerprints": {
+                  "primaryLocationLineHash": "6d63a4f1fcd76737"
+                },
+                "properties": {
+                  "description": "## Vulnerability Details\n  **File Location**: `SKILL.md:92-110`; `templates/distill-config.json:1-9`  \n  **Vulnerability Type**: T09: Insecure Skill Coding Practices  \n  **Risk Level**: Medium\n\n  ### Vulnerable Code\n\n  `SKILL.md:92-110`:\n\n  ```markdown\n  | 核心级 | 下次会话还会问起，且长期（≥1 周/永久）相关：影响未来决策、身份、项目长期状态 | 根目录 MEMORY.md | 决策、项目状态、核心知识点、长期偏好、关键联系人 |\n  | 日常级 | 下次会话还会问起，但只是最近几天的事：近期任务、进行中事项 | memory/YYYY-MM-DD.md | 任务、待办、当日事件、进展 |\n  | 临时级 | 用完就没了：一次性信息，未来会话不会引用 | 只留当日，过期提示归档 | 验证码、临时链接、一次性数据 |\n\n  判断靠**语义理解**，不是关键词匹配。拿不准时向用户确认。\n\n  ### Step 3: 生成蒸馏报告 + 安全检查\n\n  - 结构化输出：`决策 x 条 | 任务 x 条 | 知识点 x 条 | 临时 x 条`\n  - **敏感信息检测**：按 `distill-config.json` 的 `sensitivePatterns` 匹配（ghp_/sk-/password 等）→ 命中条目**默认跳过不写入**，报告提示「检测到敏感信息 x 条，已跳过」\n  - 写入策略：\n    - **手动触发**：先出报告 → 用户确认 → 写入\n    - **Cron 触发**：直接写入 + 完成后汇报差异，敏感信息一律跳过\n\n  ### Step 4: 增量写入 + 去重\n\n  - 写 MEMORY.md 前**先读已有内容查重**：只追加新条目，重复条目合并——防多次蒸馏后重复膨胀\n  - 按主题组织写入（核心/协议/项目状态/环境备忘/时间线），不按日期堆砌\n  - 追加今日蒸馏记录到 `memory/YYYY-MM-DD.md`（带时间戳 + 来源会话）\n  ```\n\n  `templates/distill-config.json:1-9`:\n\n  ```json\n  {\n    \"retentionDays\": 90,\n    \"autoClean\": false,\n    \"maintainEvery\": 7,\n    \"categories\": [\"core\", \"daily\", \"temporary\"],\n    \"sensitivePatterns\": [\"ghp_[A-Za-z0-9]\", \"sk-[A-Za-z0-9]\", \"api[_-]?key\", \"password\", \"secret\", \"token\"],\n    \"schedule\": \"0 22 * * *\",\n    \"lastDistill\": null\n  }\n  ```\n\n  ### Technical Analysis\n\n  The skill explicitly identifies verification codes, temporary links, and one-time data as content eligible for storage in daily memory logs. Its protection depends on a short list of regular-expression fragments that only detects selected token prefixes and generic keywords.\n\n  The configured patterns do not comprehensively detect common sensitive values such as:\n\n  - Numeric or alphanumeric one-time passwords\n  - Signed or presigned URLs\n  - Session cookies and bearer authorization headers\n  - PEM-encoded private keys\n  - Cloud-provider access credentials\n  - Database connection strings\n  - Secrets whose surrounding text does not contain one of the configured keywords\n\n  The patterns for `ghp_` and `sk-` also match only the prefix plus one character and do not establish reliable token boundaries or redact the complete secret. Although matching entries are skipped rather than partially redacted, the weak expressions demonstrate that the filter is not a robust data-loss-prevention boundary.\n\n  This issue is amplified by the retention model: daily records are not automatically deleted, and old records are only archived. Cron-triggered processing can write entries without prior user review.\n\n  ### Attack Path\n\n  1. A user conversation includes an OTP, signed password-reset URL, session URL, or another secret not recognized by the configured patterns.\n  2. The skill classifies the value as temporary information.\n  3. The sensitive-data check fails because the value lacks a configured prefix or keyword.\n  4. During manual confirmation or automatic cron processing, the entry is written to `memory/YYYY-MM-DD.md`.\n  5. The file remains in the workspace or is later moved to an archive rather than deleted.\n  6. The secret may subsequently be exposed through a repository commit, backup, shared workspace, later model context, or local account compromise.\n\n  ### Impact Assessment\n\n  No additional system privileges are directly obtained by the skill. However, an attacker or unauthorized reader who gains access to the workspace memory files may obtain authentication material with the privileges of the affected account or service.\n\n  The practical scope depends on the persisted value. An unexpired OTP could permit account verification, while a signed administrative URL, session cookie, or cloud credential could provide access to private data or privileged service operations. Long-term plaintext retention increases the exposure window even when some temporary values eventually expire.",
+                  "severity": "Medium"
+                },
+                "fixes": [
+                  {
+                    "description": {
+                      "text": "## Remediation Suggestions\n\n  1. Prohibit persistence of OTPs, verification codes, reset links, session cookies, authorization headers, signed URLs, and private keys regardless of their classification.\n  2. Replace the keyword-only filter with layered detection covering structured credential formats, high-entropy values, URL signature parameters, PEM blocks, connection strings, and common cloud credentials.\n  3. Redact sensitive substrings before classification and writing rather than relying only on whole-entry rejection.\n  4. Require explicit user confirmation before writing any uncertain or temporary entry, including cron-triggered entries.\n  5. Store only a non-sensitive summary, such as “a temporary authentication link was received,” instead of the underlying value.\n  6. Apply restrictive filesystem permissions to memory files and exclude memory directories from source-control commits and shared backups by default.\n  7. Add automated tests containing representative OTPs, signed URLs, cookies, private keys, and provider-specific credentials.\n  8. Introduce a short, enforceable retention period for temporary records and securely remove expired sensitive records only under a clearly disclosed, user-approved policy."
+                    }
+                  }
+                ]
+              },
+              {
+                "ruleId": "T02",
+                "level": "note",
+                "message": {
+                  "text": "First-run memory template injects a persistent behavioral instruction"
+                },
+                "locations": [
+                  {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "templates/MEMORY.md"
+                      },
+                      "region": {
+                        "startLine": 7,
+                        "endLine": 13
+                      }
+                    }
+                  }
+                ],
+                "partialFingerprints": {
+                  "primaryLocationLineHash": "37f7148dc6d9c70e"
+                },
+                "properties": {
+                  "description": "## Vulnerability Details\n  **File Location**: `templates/MEMORY.md:7-13`; supporting workflow in `SKILL.md:71-77` and `SKILL.md:101-104`  \n  **Vulnerability Type**: T02: Agent Memory Poisoning  \n  **Risk Level**: Low\n\n  ### Vulnerable Code\n\n  `templates/MEMORY.md:7-13`:\n\n  ```markdown\n  ## 核心\n\n  - **反馈至上**：任务无论成败必须向用户反馈——成功报产出，失败报原因，决策权归用户\n  - **我**：（agent 名字），（定位一句话）\n  - **用户**：（称呼），（渠道）\n  - **风格**：（一句话）\n  - **时区**：Asia/Shanghai (GMT+8)\n  ```\n\n  Supporting first-run workflow in `SKILL.md:71-77`:\n\n  ```markdown\n  2. **工作区根目录 `MEMORY.md`**（注意：是根目录，与 AGENTS.md 平级，**不在 memory/ 下**）：\n     - **缺失 → 执行「首次建忆」**：\n       - 扫描 `memory/` 全部历史日志（YYYY-MM-DD.md）\n       - 语义提炼核心级信息：身份 / 协议 / 项目状态 / 环境备忘 / 关键时间线\n       - 按 `templates/MEMORY.md` 结构生成初版\n       - 报告用户确认后落盘\n       - 若 `memory/` 也没有任何日志 → 用模板建空骨架（标注「待填充」）\n  ```\n\n  Automatic write behavior in `SKILL.md:101-104`:\n\n  ```markdown\n  - **敏感信息检测**：按 `distill-config.json` 的 `sensitivePatterns` 匹配（ghp_/sk-/password 等）→ 命中条目**默认跳过不写入**，报告提示「检测到敏感信息 x 条，已跳过」\n  - 写入策略：\n    - **手动触发**：先出报告 → 用户确认 → 写入\n    - **Cron 触发**：直接写入 + 完成后汇报差异，敏感信息一律跳过\n  ```\n\n  ### Technical Analysis\n\n  The memory template contains a fixed behavioral rule rather than only structural headings or user-derived facts. The first-run process uses this template to generate the root-level `MEMORY.md`, which is intended to be loaded during future primary sessions.\n\n  Consequently, invoking the skill can convert a package-authored instruction into persistent agent state. The instruction currently present is benign and does not attempt to bypass safety controls. Nevertheless, the mechanism crosses a trust boundary: skill-authored behavioral policy becomes long-term memory even though it was not learned from the user or the user's conversation history.\n\n  Manual operation includes a confirmation step, which reduces risk. Cron mode, however, is documented to write directly and report afterward, creating a path by which the template instruction can be persisted without prior review.\n\n  ### Attack Path\n\n  1. The target workspace does not contain a root-level `MEMORY.md`.\n  2. The skill runs its first-memory initialization workflow.\n  3. It generates the new memory file using `templates/MEMORY.md`.\n  4. The fixed behavioral instruction is copied into persistent memory.\n  5. In cron mode, this write may occur without prior user approval.\n  6. Future primary sessions load or rely on `MEMORY.md`.\n  7. The embedded rule influences subsequent agent behavior beyond the original skill invocation.\n\n  ### Impact Assessment\n\n  The current embedded instruction does not grant filesystem, operating-system, network, or service privileges. Its direct impact is limited to persistent influence over future agent responses.\n\n  The broader security concern is the persistence channel itself. If this pattern were extended with more forceful instructions, a skill update or modified package could inject rules that redirect future tasks, weaken decision-making, or manipulate tool use across sessions. Based on the audited content, that stronger behavior is only a potential consequence of the design and is not present in this package.",
+                  "severity": "Low"
+                },
+                "fixes": [
+                  {
+                    "description": {
+                      "text": "## Remediation Suggestions\n\n  1. Remove fixed behavioral directives from `templates/MEMORY.md`.\n  2. Limit the template to neutral structural headings and clearly marked placeholders.\n  3. Persist only facts, preferences, and protocols explicitly supplied or approved by the user.\n  4. Treat instructions and behavioral rules as a high-risk memory category requiring explicit confirmation, even during cron execution.\n  5. Show the exact proposed `MEMORY.md` diff before the first write and identify which entries came from templates versus conversation history.\n  6. Prevent cron mode from creating or modifying behavioral policy without prior approval.\n  7. Record provenance metadata for each persistent instruction so users can identify its source and remove it safely.\n  8. Add validation that rejects template-authored imperative language from long-term memory unless the user has explicitly authorized it."
+                    }
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "securityScore": 65,
+              "primaryLanguage": "Markdown",
+              "llm": "gpt-5.6",
+              "startTime": 1789556967.5556712,
+              "endTime": 1789557067.5823274
+            }
+          }
+        ]
+      },
+      "skillspector": {
+        "skill": {
+          "name": "xiaoyaoclaw-memory-distill",
+          "source": "/tmp/clawhub-codex-scan-v57976wc1yfg4m1cvnmh1aj4vd8egs7r-11NMVi/clawscan-skillspector-3528988664/artifact",
+          "scanned_at": "2026-09-16T11:08:45.575843+00:00"
+        },
+        "risk_assessment": {
+          "score": 32,
+          "severity": "MEDIUM",
+          "recommendation": "CAUTION",
+          "max_issue_severity": "MEDIUM"
+        },
+        "components": [
+          {
+            "path": "SKILL.md",
+            "type": "markdown",
+            "lines": 181,
+            "executable": false,
+            "size_bytes": 9458,
+            "source_url": null,
+            "source_identity": null,
+            "source_digest": null
+          },
+          {
+            "path": "templates/AGENTS-memory-safety.md",
+            "type": "markdown",
+            "lines": 17,
+            "executable": false,
+            "size_bytes": 972,
+            "source_url": null,
+            "source_identity": null,
+            "source_digest": null
+          },
+          {
+            "path": "templates/MEMORY.md",
+            "type": "markdown",
+            "lines": 29,
+            "executable": false,
+            "size_bytes": 816,
+            "source_url": null,
+            "source_identity": null,
+            "source_digest": null
+          },
+          {
+            "path": "templates/distill-config.json",
+            "type": "json",
+            "lines": 9,
+            "executable": false,
+            "size_bytes": 277,
+            "source_url": null,
+            "source_identity": null,
+            "source_digest": null
+          }
+        ],
+        "structured_summaries": [],
+        "issues": [
+          {
+            "id": "SQP-1",
+            "finding_id": "finding-1b7c43efc1084cd7a80e897ccbe20cb7",
+            "category": null,
+            "pattern": null,
+            "severity": "MEDIUM",
+            "confidence": 0.92,
+            "location": {
+              "file": "SKILL.md",
+              "start_line": 29,
+              "end_line": 29
+            },
+            "finding": null,
+            "explanation": "The trigger list includes broad natural-language phrases such as “整理对话/整理记忆/压缩上下文” that a user may say conversationally without intending to invoke a file-writing workflow. Because this skill can create directories, generate MEMORY.md, and write daily logs, accidental activation can lead to unintended persistence or modification of workspace data.",
+            "remediation": "Narrow the trigger phrases to explicit command-style invocations, such as requiring a fixed prefix or exact intent phrase. Add a confirmation gate before any write action, especially when activation came from ambiguous language, and support a dry-run/report-only mode by default.",
+            "code_snippet": null,
+            "intent": null,
+            "tags": [],
+            "evidence": {},
+            "match_fingerprint": null,
+            "occurrences": [
+              {
+                "file": "SKILL.md",
+                "start_line": 29,
+                "end_line": 29
+              }
+            ]
+          },
+          {
+            "id": "SQP-2",
+            "finding_id": "finding-cb9eea72be154235bf8d7e7d685fe721",
+            "category": null,
+            "pattern": null,
+            "severity": "MEDIUM",
+            "confidence": 0.94,
+            "location": {
+              "file": "SKILL.md",
+              "start_line": 47,
+              "end_line": 48
+            },
+            "finding": null,
+            "explanation": "The Cron mode explicitly states 'direct write + report differences' for scheduled runs, which allows automatic modification of workspace memory files without an interactive approval step at execution time. In context, this is more dangerous because the skill writes persistent structured memory derived from conversation content, so misclassification, prompt injection in prior chat content, or sensitive-data detection gaps could cause unwanted or inaccurate data to be stored automatically.",
+            "remediation": "Require explicit opt-in with a prominent warning during setup that scheduled runs will modify workspace files automatically. Prefer report-only scheduled runs by default, or require a separate 'autoWrite: true' setting plus path restrictions, audit logging, and an easy rollback/preview mechanism.",
+            "code_snippet": null,
+            "intent": null,
+            "tags": [],
+            "evidence": {},
+            "match_fingerprint": null,
+            "occurrences": [
+              {
+                "file": "SKILL.md",
+                "start_line": 47,
+                "end_line": 48
+              }
+            ]
+          },
+          {
+            "id": "SQP-3",
+            "finding_id": "finding-d01811c923ae42029073a9903f8b3ae0",
+            "category": null,
+            "pattern": null,
+            "severity": "MEDIUM",
+            "confidence": 0.94,
+            "location": {
+              "file": "templates/AGENTS-memory-safety.md",
+              "start_line": 1,
+              "end_line": 17
+            },
+            "finding": null,
+            "explanation": "This markdown file contains user-facing policy and operational instructions only in Chinese, which effectively forces a specific language for anyone using the skill. The rule for natural-language policy violations applies to all file types and flags language constraints when no user choice or opt-in is provided.",
+            "remediation": "Provide an English version or a bilingual version of the document, or explicitly state that the Chinese-language variant is optional and link to alternative language versions.",
+            "code_snippet": null,
+            "intent": null,
+            "tags": [
+              "llm-unconfirmed"
+            ],
+            "evidence": {},
+            "match_fingerprint": null,
+            "occurrences": [
+              {
+                "file": "templates/AGENTS-memory-safety.md",
+                "start_line": 1,
+                "end_line": 17
+              }
+            ]
+          },
+          {
+            "id": "SQP-3",
+            "finding_id": "finding-224a8ddcf26244f1a0787c528842bd2e",
+            "category": null,
+            "pattern": null,
+            "severity": "MEDIUM",
+            "confidence": 0.94,
+            "location": {
+              "file": "templates/MEMORY.md",
+              "start_line": 3,
+              "end_line": 5
+            },
+            "finding": null,
+            "explanation": "The template text is written as mandatory instructions in Chinese and does not indicate that the language is optional or selectable by the user. This can violate a language/locale policy when a skill implicitly forces a specific language without user opt-in.",
+            "remediation": "State that the memory template language should follow the user's preferred language, or explicitly offer language selection/opt-in. If Chinese is required for a justified regional use case, document that constraint clearly.",
+            "code_snippet": null,
+            "intent": null,
+            "tags": [
+              "llm-unconfirmed"
+            ],
+            "evidence": {},
+            "match_fingerprint": null,
+            "occurrences": [
+              {
+                "file": "templates/MEMORY.md",
+                "start_line": 3,
+                "end_line": 5
+              }
+            ]
+          }
+        ],
+        "suppressed_count": 0,
+        "suppressed": [],
+        "metadata": {
+          "has_executable_scripts": false,
+          "skillspector_version": "2.11.2",
+          "llm_requested": true,
+          "llm_available": true,
+          "meta_analysis_applied": true,
+          "inference_usage": [
+            {
+              "node": "semantic_developer_intent",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 4886,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 4900
+            },
+            {
+              "node": "semantic_developer_intent",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1815,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1829
+            },
+            {
+              "node": "semantic_developer_intent",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1838,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1852
+            },
+            {
+              "node": "semantic_developer_intent",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1616,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1630
+            },
+            {
+              "node": "semantic_quality_policy",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1501,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1515
+            },
+            {
+              "node": "semantic_quality_policy",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1723,
+              "completion_tokens": 150,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1873
+            },
+            {
+              "node": "semantic_quality_policy",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1700,
+              "completion_tokens": 154,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1854
+            },
+            {
+              "node": "semantic_quality_policy",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 4771,
+              "completion_tokens": 310,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 5081
+            },
+            {
+              "node": "semantic_security_discovery",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 4303,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 4317
+            },
+            {
+              "node": "semantic_security_discovery",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1255,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1269
+            },
+            {
+              "node": "semantic_security_discovery",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1232,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1246
+            },
+            {
+              "node": "semantic_security_discovery",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1033,
+              "completion_tokens": 14,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1047
+            },
+            {
+              "node": "meta_analyzer",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1418,
+              "completion_tokens": 216,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1634
+            },
+            {
+              "node": "meta_analyzer",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 1359,
+              "completion_tokens": 209,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 1568
+            },
+            {
+              "node": "meta_analyzer",
+              "request_kind": "structured_output",
+              "provider": "openai",
+              "model": "gpt-5.4-2026-03-05",
+              "model_source": "provider_response",
+              "usage_source": "provider_response",
+              "prompt_tokens": 3982,
+              "completion_tokens": 416,
+              "cached_tokens": 0,
+              "reasoning_tokens": 0,
+              "total_tokens": 4398
+            }
+          ],
+          "llm_calls_attempted": 4,
+          "llm_calls_succeeded": 4
+        },
+        "execution_successful": true,
+        "analysis_completeness": {
+          "total_components": 4,
+          "scanned_components": 4,
+          "coverage_percent": 100,
+          "is_complete": false,
+          "status": "partial",
+          "execution_successful": true,
+          "fully_inspected_files": 4,
+          "partially_inspected_files": 0,
+          "entirely_uninspected_files": 0,
+          "ledger_exceptions": [
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 6,
+              "end_line": 6,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 37,
+              "end_line": 37,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 40,
+              "end_line": 40,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 79,
+              "end_line": 79,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 93,
+              "end_line": 93,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 101,
+              "end_line": 101,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 110,
+              "end_line": 110,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 144,
+              "end_line": 144,
+              "fatal": false
+            },
+            {
+              "outcome": "partial",
+              "phase": "reference_resolution",
+              "reason_code": "reference_unresolved",
+              "message": "A local path-like reference could not be resolved unambiguously.",
+              "path": "SKILL.md",
+              "start_line": 172,
+              "end_line": 172,
+              "fatal": false
+            }
+          ],
+          "scope_exclusions": [],
+          "analyzer_statuses": [
+            {
+              "analyzer_id": "artifact_integrity",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "behavioral_ast",
+              "status": "not_applicable",
+              "planned_work": 0,
+              "completed": 0,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0,
+              "reason_code": "no_applicable_files",
+              "message": "No files matched this analyzer's applicability contract."
+            },
+            {
+              "analyzer_id": "behavioral_taint_tracking",
+              "status": "not_applicable",
+              "planned_work": 0,
+              "completed": 0,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0,
+              "reason_code": "no_applicable_files",
+              "message": "No files matched this analyzer's applicability contract."
+            },
+            {
+              "analyzer_id": "bundled_execution_surface",
+              "status": "not_applicable",
+              "planned_work": 0,
+              "completed": 0,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0,
+              "reason_code": "no_applicable_files",
+              "message": "No files matched this analyzer's applicability contract."
+            },
+            {
+              "analyzer_id": "mcp_least_privilege",
+              "status": "not_applicable",
+              "planned_work": 0,
+              "completed": 0,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0,
+              "reason_code": "no_applicable_files",
+              "message": "No files matched this analyzer's applicability contract."
+            },
+            {
+              "analyzer_id": "mcp_rug_pull",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "mcp_tool_poisoning",
+              "status": "completed",
+              "planned_work": 1,
+              "completed": 1,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "meta_analyzer",
+              "status": "completed",
+              "planned_work": 3,
+              "completed": 3,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "semantic_developer_intent",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "semantic_quality_policy",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "semantic_security_discovery",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_agent_snooping",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_anti_refusal",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_data_exfiltration",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_deserialization",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_excessive_agency",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_harmful_content",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_memory_poisoning",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_output_handling",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_privilege_escalation",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_prompt_injection",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_rogue_agent",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_ssrf",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_supply_chain",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_system_prompt_leakage",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_patterns_tool_misuse",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            },
+            {
+              "analyzer_id": "static_yara",
+              "status": "completed",
+              "planned_work": 4,
+              "completed": 4,
+              "partial": 0,
+              "skipped": 0,
+              "failed": 0,
+              "unaccounted": 0
+            }
+          ],
+          "references": [
+            {
+              "source_path": "SKILL.md",
+              "line": 6,
+              "column": 17,
+              "evidence": "+ daily logs (memory/YYYY-MM-DD.md). Solves context overflow, auto-builds",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 37,
+              "column": 62,
+              "evidence": "\"schedule\": { \"kind\": \"cron\", \"expr\": \"0 22 * * *\", \"tz\": \"Asia/Shanghai\" },",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 40,
+              "column": 95,
+              "evidence": "\"text\": \"执行记忆蒸馏：分析今日对话，提取决策/任务/知识点/临时信息，按 xiaoyaoclaw-memory-distill 技能流程分级写入 MEMORY.md 和 memory/YYYY-MM-DD.md，生成蒸馏报告。\"",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 71,
+              "column": 14,
+              "evidence": "2. **工作区根目录 `MEMORY.md`**（注意：是根目录，与 AGENTS.md 平级，**不在 memory/ 下**）：",
+              "target_path": "templates/MEMORY.md",
+              "status": "resolved",
+              "disposition": "analyzed"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 75,
+              "column": 11,
+              "evidence": "- 按 `templates/MEMORY.md` 结构生成初版",
+              "target_path": "templates/MEMORY.md",
+              "status": "resolved",
+              "disposition": "analyzed"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 78,
+              "column": 14,
+              "evidence": "3. **工作区根目录 `distill-config.json`** — 缺失则复制 `templates/distill-config.json`",
+              "target_path": "templates/distill-config.json",
+              "status": "resolved",
+              "disposition": "analyzed"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 78,
+              "column": 46,
+              "evidence": "3. **工作区根目录 `distill-config.json`** — 缺失则复制 `templates/distill-config.json`",
+              "target_path": "templates/distill-config.json",
+              "status": "resolved",
+              "disposition": "analyzed"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 79,
+              "column": 10,
+              "evidence": "4. **今日 `memory/YYYY-MM-DD.md`** — 不存在则蒸馏时创建",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 93,
+              "column": 41,
+              "evidence": "| 日常级 | 下次会话还会问起，但只是最近几天的事：近期任务、进行中事项 | memory/YYYY-MM-DD.md | 任务、待办、当日事件、进展 |",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 101,
+              "column": 17,
+              "evidence": "- **敏感信息检测**：按 `distill-config.json` 的 `sensitivePatterns` 匹配（ghp_/sk-/password 等）→ 命中条目**默认跳过不写入**，报告提示「检测到敏感信息 x 条，已跳过」",
+              "target_path": "templates/distill-config.json",
+              "status": "resolved",
+              "disposition": "analyzed"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 101,
+              "column": 63,
+              "evidence": "- **敏感信息检测**：按 `distill-config.json` 的 `sensitivePatterns` 匹配（ghp_/sk-/password 等）→ 命中条目**默认跳过不写入**，报告提示「检测到敏感信息 x 条，已跳过」",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 110,
+              "column": 14,
+              "evidence": "- 追加今日蒸馏记录到 `memory/YYYY-MM-DD.md`（带时间戳 + 来源会话）",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 111,
+              "column": 10,
+              "evidence": "- 更新根目录 `distill-config.json` 的 `lastDistill` 时间戳（防 cron 同一天重复蒸馏）",
+              "target_path": "templates/distill-config.json",
+              "status": "resolved",
+              "disposition": "analyzed"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 137,
+              "column": 10,
+              "evidence": "工作区根目录的 `distill-config.json` 是运行参数文件（per-agent 独立，每个 agent 工作区一份），不用改 SKILL.md 即可调整行为：",
+              "target_path": "templates/distill-config.json",
+              "status": "resolved",
+              "disposition": "analyzed"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 144,
+              "column": 25,
+              "evidence": "| `sensitivePatterns` | ghp_/sk-/password 等 | 敏感信息检测规则，命中即跳过，可扩展 |",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            },
+            {
+              "source_path": "SKILL.md",
+              "line": 172,
+              "column": 43,
+              "evidence": "├── MEMORY.md ← 长期记忆（核心级），与 AGENTS.md/SOUL.md 平级",
+              "target_path": null,
+              "status": "missing",
+              "disposition": "partial"
+            }
+          ],
+          "limitations": [],
+          "findings_before_filtering": 4,
+          "findings_after_filtering": 4
+        }
+      }
+    }
+  },
+  "signature": {
+    "status": "unsigned"
+  }
+}

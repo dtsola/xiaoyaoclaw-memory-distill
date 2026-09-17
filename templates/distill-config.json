@@ -2,8 +2,37 @@
   "retentionDays": 90,
   "autoClean": false,
   "maintainEvery": 7,
-  "categories": ["core", "daily", "temporary"],
-  "sensitivePatterns": ["ghp_[A-Za-z0-9]", "sk-[A-Za-z0-9]", "api[_-]?key", "password", "secret", "token"],
+  "categories": [
+    "core",
+    "daily",
+    "temporary"
+  ],
+  "sensitivePatterns": [
+    "ghp_[A-Za-z0-9]",
+    "github_pat_[A-Za-z0-9_]",
+    "sk-[A-Za-z0-9]",
+    "xoxb-[A-Za-z0-9-]",
+    "AKIA[0-9A-Z]{16}",
+    "(?i)bearer\\s+[A-Za-z0-9._-]+",
+    "(?i)api[_-]?key",
+    "(?i)password",
+    "(?i)passwd",
+    "(?i)secret",
+    "(?i)token",
+    "BEGIN [A-Z ]*PRIVATE KEY",
+    "(?i)authorization:",
+    "(?i)set-cookie",
+    "(?i)session[_-]?id",
+    "(?i)\\b(?:postgres|mysql|redis|mongodb)://[^\\s]*:[^\\s]*@"
+  ],
   "schedule": "0 22 * * *",
-  "lastDistill": null
+  "lastDistill": null,
+  "autoWrite": false,
+  "autoWriteNote": "true 时定时蒸馏会自动落盘（写前备份、只写根 MEMORY.md + memory/*.md）；开启前需向用户明示并取得同意。默认 false = 只生成报告。",
+  "writeWhitelist": [
+    "MEMORY.md",
+    "memory/*.md",
+    "memory/archive/*.md"
+  ],
+  "archiveBeforeOverwrite": true
 }

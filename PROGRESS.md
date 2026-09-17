@@ -53,3 +53,20 @@ docs:
 - 重要文档：移入 docs/ 或记录路径，追加到 docs 数组（机器可读）+ 本表格（人可读）
 - 项目完结：status 改 archived + 关键结论记入 MEMORY.md（供 memory-distill 蒸馏）
 -->
+
+## 2026-09-17 16:0x ClawHub 安全检查 6 条修复 → v1.0.3（待批）
+
+**核查**：`clawhub skill verify xiaoyaoclaw-memory-distill` → fail / suspicious（conf high）；aig **T09 warning**（明文敏感信息可能落盘）+ **T02 note**（首跑模板注入行为指令）；skillspector 4 条（SQP-1 触发过宽 / SQP-2 cron 无人确认就写 / SQP-3×2 语言）
+
+**修复**
+- **敏感信息拦截**：SKILL.md 新增专章（必跳过类别表 + 命中整条跳过 + 描述替代原文 + 示例密钥换 `<REDACTED>`）；`distill-config.json` 的 `sensitivePatterns` 6 → **16 条**（ghp_/github_pat_/sk-/xoxb-/AKIA/Bearer/PRIVATE KEY/Set-Cookie/DSN…）
+- **模板去行为指令（T02）**：`templates/MEMORY.md` 移除内置「反馈至上」条款；顶部声明**用户资产**、行为规则由用户决定；工作量协议标「可选，默认留空」
+- **触发收紧（SQP-1）**：仅明确要求「蒸馏/整理记忆」才触发 + 不触发清单 + **写前闸门**（先说清改哪些文件、条目数；仅探意图时只报告）
+- **cron 默认只报告（SQP-2）**：`autoWrite=false` 默认；开启需显式并明示用户；开启后仍须「覆盖前备份 + 只写白名单（根 MEMORY.md / memory/*.md / archive）+ 汇报差异与跳过项 + 当日日志留痕」
+- **权限与写范围声明**：frontmatter 补 `allowed-tools`；description 写明只在工作区内写、不写凭据、定时默认只报告
+- **语言（SQP-3×2）**：两个模板 + SKILL.md 补「语言可选」
+- 包卫生：`.clawhubignore` 排除 PROGRESS/docs → 包内 9 文件；hero 去 4 处注释 + 双语副标题 + **说明文字提亮修对比度（visual_verify 由 EXIT=1 → EXIT=0）**
+
+**验证**（`tmp/md_test.py` 全 PASS）：11 类凭据样本全命中 ✅ ｜ 4 条普通内容不误伤 ✅ ｜ 配置默认值合规 ✅ ｜ 模板口径合规 ✅ ｜ SKILL.md 八项要点齐全 ✅
+**产物**：`docs/security-status-2026-09-17.md` + `docs/evidence/verify-v1.0.2-2026-09-17.json`
+**待批**：发 v1.0.3
