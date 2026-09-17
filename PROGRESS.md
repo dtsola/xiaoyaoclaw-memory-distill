@@ -77,3 +77,5 @@ docs:
   - 性质：几乎全是**文档自相矛盾**（cron 口径一处说默认只报告、另一处仍说直接写）→ SDI-4 / SDI-1×2
   - 修复：cron 表加「唯一权威口径」声明 + Step 3 改写对齐；**全仓一致性自查脚本**（6 文件全过）；`distill-config.json` 纳入声明写入范围（新增「写入范围（白名单）」表）；README 中英补写盘警示 + 触发契约 + 不触发示例；语言中立（切换条 / hero 第三行 / config 注释双语 + language 字段）
   - 验证：规则测试 PASS ｜ 一致性自查 6/6 ｜ hero visual_verify EXIT=0 ｜ 包 9 文件
+
+- **2026-09-17 16:48 指挥官批「发」→ 已提交 ClawHub v1.0.4**（回执 pending security scans）；复查任务 cron \c1d4c4d\（17:20）
