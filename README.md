@@ -2,6 +2,7 @@
 
 <div align="center">
   <strong>🇨🇳 中文</strong> | <a href="README.en.md">🌐 English</a>
+  <br><sub>两种文档内容一致，任选；回答语言跟随用户 —— Language is optional, docs are equivalent.</sub>
 </div>
 
 <p align="center">
@@ -48,12 +49,20 @@ git clone https://github.com/dtsola/xiaoyaoclaw-memory-distill
 
 ## 使用
 
+> ⚠️ **它会写工作区文件**（默认只在**你确认后**写）：蒸馏会把对话内容整理进根 `MEMORY.md` 与
+> `memory/YYYY-MM-DD.md`（覆盖前先归档到 `memory/archive/`），首次配置还会创建 `distill-config.json`。
+> 定时（cron）模式**默认只报告**，不自动落盘；要自动落盘须显式把 `autoWrite` 改成 `true`。
+> 🌐 **语言可选**：中英文档任选，回答语言跟随你（中文文档按中文回复，英文提问按英文回复）。
+
 1. 把 skill 放到 OpenClaw 的 skills 目录
-2. 对 agent 说「**蒸馏记忆**」，agent 会自动：
+2. **明确说**「**蒸馏记忆**」「整理记忆」「把这轮对话蒸馏一下」，agent 才会：
    - 检测 memory/ 与 MEMORY.md（缺失则从历史日志**首次建忆**）
    - 扫描会话 → 语义分级 → 出蒸馏报告（含敏感信息提示）
    - 增量去重写入 → 汇报结果
 3. 可选：说「配置每天 22:00 自动执行记忆蒸馏」开启定时蒸馏
+
+**什么时候不会触发**：随口说的「整理一下」「总结下今天」、问记忆机制怎么工作、或只是讨论要不要整理 —— 都不会被当成调用指令；先问一句「要执行蒸馏并写入 MEMORY.md 吗？」再说。
+
 
 ## 🚀 快速上手（三步，5 分钟）
 

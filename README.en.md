@@ -24,6 +24,13 @@ This skill solves it all in one go: **semantic classification + first-run memory
 
 ## Features
 
+> ⚠️ **This skill writes workspace files** (by default only after your confirmation): distillation
+> organizes conversation content into the root `MEMORY.md` and `memory/YYYY-MM-DD.md` (archiving the
+> previous MEMORY.md to `memory/archive/` first), and the first-time setup creates `distill-config.json`.
+> Scheduled (cron) runs **report only** by default — unattended writing requires explicitly setting
+> `autoWrite: true`.
+> 🌐 **Language is optional**: docs are equivalent in Chinese and English, and answers follow the user's language.
+
 - 🧪 **Semantic classification** — Core → root `MEMORY.md`; Daily → `memory/YYYY-MM-DD.md`; Temporary → current day only (semantic understanding, not keyword matching)
 - 🏗️ **First-run memory building** — if `MEMORY.md` is missing, auto-generate it from historical logs — no empty skeleton
 - 🔁 **Incremental dedup** — checks existing content before writing; appends only new entries, merges duplicates
@@ -47,7 +54,7 @@ git clone https://github.com/dtsola/xiaoyaoclaw-memory-distill
 ## Usage
 
 1. Put the skill in your OpenClaw skills directory
-2. Tell your agent "**distill memory**" (or in Chinese: 「蒸馏记忆」) — it will automatically:
+2. **Ask explicitly** — "**distill memory**" / 「蒸馏记忆」/ "tidy up my memory" — then it will:
    - Check `memory/` and `MEMORY.md` (if missing, **build memory from historical logs**)
    - Scan the session → classify semantically → show a distill report (with sensitive-info notices)
    - Write incrementally with dedup → report results

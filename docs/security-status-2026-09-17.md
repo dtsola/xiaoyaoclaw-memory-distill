@@ -55,3 +55,28 @@ LLM 判词：*"not malicious, but it deserves review because it can automaticall
 ## 5. 原始证据
 
 - `docs/evidence/verify-v1.0.2-2026-09-17.json`
+
+
+---
+
+## 6. v1.0.3 复扫：aig 清零，剩 9 条（2026-09-17 16:3x 追加）
+
+**进展**：**aig 命中 0 条** ✅（T09/T02 都已清除）；skillspector **9 条**（MEDIUM 6 / LOW 3，风险分 53）。
+**性质**：几乎全是**我自己文档前后不一致**招来的（比规则误报更该修）。
+
+| 命中 | 位置 | 问题 | 修复 |
+|---|---|---|---|
+| **SDI-4** MEDIUM（conf 0.96） | `SKILL.md:87` | cron 写入口径**自相矛盾**（一处说默认只报告、另一处仍说直接写） | ① 在 cron 策略表前加**「本节是 cron 行为唯一权威口径，其它位置表述不同一律以本表为准」** ② Step 3 写入策略改写为「默认只报告；仅 `autoWrite: true` 时自动落盘 + 写前备份 + 白名单 + 汇报差异」 |
+| **SDI-1** MEDIUM（conf 0.97） | `SKILL.md:151` | 同上矛盾的第二处（Step 3 仍写「Cron 触发：直接写入」） | 已随上条一并改写；并做**全仓一致性自查脚本**（6 个文件全部确认无「cron 直接写入」类表述） |
+| **SDI-1** MEDIUM | `README.en.md:79` | README 说会创建 `distill-config.json`，但声明的写入范围里没有它 | **把 `distill-config.json` 纳入声明写入范围**（description + 新增「写入范围（白名单）」表：MEMORY.md / memory/*.md / memory/archive/ / distill-config.json，并注明何时写） |
+| **SQP-2** MEDIUM ×2 | `README.en.md:27`、`README.md:51` | README 在 features/用法处没醒目提示"会改工作区文件" | README 中英在 features 与用法段顶部各加 ⚠️ 警示：会写哪些文件、首次配置会建 config、定时**默认只报告**、`autoWrite` 需显式开启 |
+| **SQP-1** MEDIUM | `README.en.md:50` | README 缺完整触发契约与否定示例 | 中英 README 补触发契约（明确说「蒸馏记忆/distill memory」）与**不触发示例**（随口「整理一下」、问机制、只讨论要不要做） |
+| **SQP-3** LOW ×3 | `README.md:3`、`assets/readme/hero.svg:12`、`templates/distill-config.json:31` | 语言未声明可选 | 语言切换条补「两种文档内容一致、任选，回答语言跟随用户」；hero 第三行改双语；config 的 `autoWriteNote` 改**中英双语**并新增 `language` 字段 |
+
+**追加验证**
+- `tmp/md_test.py` 规则测试 **PASS**（敏感正则 11/11 命中、4 条普通内容不误伤、配置默认值安全、模板口径合规、结构八项齐全）
+- **cron 口径一致性自查**：SKILL.md / README 中英 / 两个模板 / config **6 个文件全部通过**
+- hero.svg 渲染 47 KB，**visual_verify EXIT=0**（无对比度/贴边问题）
+- 包预览：**9 个文件**
+
+**待批**：发 **v1.0.4**

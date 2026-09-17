@@ -28,11 +28,12 @@
   "schedule": "0 22 * * *",
   "lastDistill": null,
   "autoWrite": false,
-  "autoWriteNote": "true 时定时蒸馏会自动落盘（写前备份、只写根 MEMORY.md + memory/*.md）；开启前需向用户明示并取得同意。默认 false = 只生成报告。",
+  "autoWriteNote": "true 时定时蒸馏会自动落盘（写前备份、只写根 MEMORY.md + memory/*.md + memory/archive/*.md）；开启前需向用户明示并取得同意。默认 false = 只生成报告。 / When true, scheduled distillation writes unattended (backup first; whitelisted paths only: root MEMORY.md, memory/*.md, memory/archive/*.md). Enable only after telling the user and getting consent. Default false = report only.",
   "writeWhitelist": [
     "MEMORY.md",
     "memory/*.md",
     "memory/archive/*.md"
   ],
-  "archiveBeforeOverwrite": true
+  "archiveBeforeOverwrite": true,
+  "language": "文档/输出默认中文，语言可选（回答跟随用户语言）/ Docs default to Chinese; language is optional."
 }
