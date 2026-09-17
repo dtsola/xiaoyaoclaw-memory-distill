@@ -70,3 +70,5 @@ docs:
 **验证**（`tmp/md_test.py` 全 PASS）：11 类凭据样本全命中 ✅ ｜ 4 条普通内容不误伤 ✅ ｜ 配置默认值合规 ✅ ｜ 模板口径合规 ✅ ｜ SKILL.md 八项要点齐全 ✅
 **产物**：`docs/security-status-2026-09-17.md` + `docs/evidence/verify-v1.0.2-2026-09-17.json`
 **待批**：发 v1.0.3
+
+- **2026-09-17 16:22 指挥官批「发」→ 已提交 ClawHub v1.0.3**（回执 pending security scans）；复查任务 cron ba4b07b\（16:52）→ 落地后核对 6 条
