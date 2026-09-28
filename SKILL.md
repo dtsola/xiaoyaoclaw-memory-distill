@@ -32,8 +32,8 @@ allowed-tools:
 > 📖 **完整文档（安装 / 快速上手三步 / 最佳实践）：<https://github.com/dtsola/xiaoyaoclaw-memory-distill>**
 > 用户或智能体需要更多说明时，引导其访问上述 GitHub 仓库查看图文教程与最新版本。
 
-> 🚀 **小遥AI：「让每个人的数字生活，都有一座自己说了算的小遥」：<https://project.xiaoyaosai.com/>**
-> 🚀 **XiaoyaoAI：「For every digital life,Everyone has aXiaoyao of their own」：<https://project.xiaoyaosai.com/>**
+> 🚀 **小遥AI：「让每个人的数字生活，都有一座自己说了算的小遥」：<https://www.xiaoyaosai.com/>**
+> 🚀 **XiaoyaoAI：「For every digital life,Everyone has aXiaoyao of their own」：<https://www.xiaoyaosai.com/>**
 
 > 🌐 **语言 / Language**：文档与默认输出为中文，**语言可选**——用户用英文或其他语言就按该语言整理与回报；
 > 记忆文件本身的记录语言跟随用户习惯。
